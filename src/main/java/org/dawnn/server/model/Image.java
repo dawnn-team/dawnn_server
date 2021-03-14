@@ -24,10 +24,9 @@ public class Image {
 
     @JsonCreator
     public Image(@JsonProperty("image") String base64Image,
-                 @JsonProperty("HWID") String HWIDOrigin) {
-        // We probably want to pass this value in explicitly,
-        // So we don't have to dig up metadata.
-        this.location = ImageUtils.findLocation(base64Image);
+                 @JsonProperty("HWID") String HWIDOrigin,
+                 @JsonProperty("location") GeoLocation location) {
+        this.location = location;
         this.base64Image = base64Image;
         this.HWIDOrigin = HWIDOrigin;
         this.uuid = UUID.randomUUID();

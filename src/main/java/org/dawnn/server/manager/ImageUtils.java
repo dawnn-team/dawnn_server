@@ -82,6 +82,7 @@ public class ImageUtils {
      * @param image The image to find the location of.
      * @return The whatever geolocation that was found, null if none.
      */
+    @Deprecated
     public static GeoLocation findLocation(Image image) {
         // TODO Finish this.
         return null;
@@ -93,6 +94,7 @@ public class ImageUtils {
      * @param string64 The string64 interpretation of an image
      * @return The whatever geoLocation that was found, null if none.
      */
+    @Deprecated
     public static GeoLocation findLocation(String string64) {
         // TODO Finish this.
         return null;
