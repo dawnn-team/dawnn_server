@@ -18,7 +18,7 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @PostMapping
+    @PostMapping(consumes = "text/plain;charset=utf-8")
     public void addImage(@RequestBody Image image) {
         imageService.addImage(image);
     }

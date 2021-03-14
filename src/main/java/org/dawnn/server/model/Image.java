@@ -1,6 +1,7 @@
 package org.dawnn.server.model;
 
 import com.drew.lang.GeoLocation;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import org.dawnn.server.manager.ImageUtils;
@@ -21,6 +22,7 @@ public class Image {
     @Getter
     private final UUID uuid;
 
+    @JsonCreator
     public Image(@JsonProperty("image") String base64Image,
                  @JsonProperty("HWID") String HWIDOrigin) {
         // We probably want to pass this value in explicitly,
