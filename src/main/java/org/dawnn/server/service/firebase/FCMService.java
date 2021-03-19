@@ -1,5 +1,6 @@
 package org.dawnn.server.service.firebase;
 
+import com.google.firebase.messaging.Message;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,12 +16,20 @@ public class FCMService {
 
     }
 
+    /**
+     * Documentation stub
+     * @return FCMService
+     */
     public static FCMService getInstance() {
         if (instance == null) {
             instance = new FCMService();
         }
         return instance;
     }
+
+//    public static Message sendMessage() {
+//        Message alert = new Message.builder().putData().setToken().build(); //token and whatever data
+//    }
 
 }
 

@@ -4,6 +4,9 @@ import org.dawnn.server.model.Image;
 
 import java.util.List;
 
+/**
+ * Image Data Access Object accesses the Image from the server's database
+ */
 public interface ImageDAO {
 
 

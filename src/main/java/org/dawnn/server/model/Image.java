@@ -7,6 +7,9 @@ import lombok.Getter;
 
 import java.util.UUID;
 
+/**
+ * Represents an image with its location, its base 64 representation, the hardware from which it originated, and a UUID
+ */
 public class Image {
 
     @Getter

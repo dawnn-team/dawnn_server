@@ -17,6 +17,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
+/**
+ * Provides the utilities used to create and access the data in an Image object
+ */
 public class ImageUtils {
 
     // Might not need this class depending on how explicit
@@ -29,6 +32,7 @@ public class ImageUtils {
      * @param file The input image.
      * @return The image data, null if none.
      */
+    @Deprecated
     public static Metadata findImageImageData(@NonNull File file) {
         try {
             return ImageMetadataReader.readMetadata(file);
@@ -65,6 +69,7 @@ public class ImageUtils {
      * @param base64 The base 64 String to convert.
      * @return An image equivalent of the provided String, null if conversion fails.
      */
+    @Deprecated
     public static Image fromBase64(@NonNull String base64) {
         try {
             byte[] bytes = base64.getBytes(StandardCharsets.UTF_8);

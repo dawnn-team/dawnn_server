@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Uses ImageDAO to access the database
+ */
 @Service
 public class ImageService {
 

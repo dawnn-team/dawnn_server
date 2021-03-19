@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implements ImageDAO to access the Image from the database
+ */
 @Repository("fakeDao")
 public class FakeImageDataAccessService implements ImageDAO {
 
