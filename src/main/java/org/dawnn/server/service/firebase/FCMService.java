@@ -1,6 +1,8 @@
 package org.dawnn.server.service.firebase;
 
 import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.Notification;
+import org.dawnn.server.service.MessageContent;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,26 +12,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class FCMService {
 
-    private static FCMService instance;
+    private final FirebaseMessaging firebaseMessaging;
 
-    private FCMService() {
-
+    public FCMService(FirebaseMessaging firebaseMessaging) {
+        this.firebaseMessaging = firebaseMessaging;
     }
 
-    /**
-     * Documentation stub
-     * @return FCMService
-     */
-    public static FCMService getInstance() {
-        if (instance == null) {
-            instance = new FCMService();
-        }
-        return instance;
-    }
+    public String sendMessage(MessageContent messageContent, String token) {
 
-//    public static Message sendMessage() {
-//        Message alert = new Message.builder().putData().setToken().build(); //token and whatever data
-//    }
+        // Construct client notification first
+        Notification notification = Notification.builder().setBody(messageContent.getContent())
+                .setBody(messageContent.getContent())
+                .build();
+
+        // Now construct the message to be sent
+        Message message = Message.builder().setToken(token)
+                .setNotification(notification)
+                .putAllData(messageContent.getData())
+                .build();
+
+        return firebaseMessaging.sendNotification()
+    }
 
 }
 
