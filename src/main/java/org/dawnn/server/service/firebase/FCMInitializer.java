@@ -3,6 +3,7 @@ package org.dawnn.server.service.firebase;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.messaging.FirebaseMessaging;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,13 +14,16 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 /**
- * Initializes firebase
+ * Initializes the Firebase app component of Dawn.
  */
-public class FirebaseMessaging {
+public class FCMInitializer {
 
-    Logger logger = LoggerFactory.getLogger(FirebaseMessaging.class);
+    Logger logger = LoggerFactory.getLogger(FCMInitializer.class);
     @Value("${app.firebase-configuration-file}")
     private String firebaseConfigPath;
+
+    private FirebaseApp firebaseApp;
+    private FirebaseMessaging firebaseMessaging;
 
     @PostConstruct
     public void initialize() {
@@ -29,12 +33,18 @@ public class FirebaseMessaging {
                     .build();
 
             if (FirebaseApp.getApps().isEmpty()) {
-                FirebaseApp.initializeApp(options);
+                this.firebaseApp = FirebaseApp.initializeApp(options);
+                firebaseMessaging = FirebaseMessaging.getInstance(this.firebaseApp);
                 logger.info("Firebase application has been initialized.");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Bean
+    FirebaseMessaging firebaseMessaging() {
+        return firebaseMessaging;
     }
 
 }

@@ -1,5 +1,7 @@
 package org.dawnn.server.service.firebase;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import org.dawnn.server.service.MessageContent;
@@ -18,7 +20,9 @@ public class FCMService {
         this.firebaseMessaging = firebaseMessaging;
     }
 
-    public String sendMessage(MessageContent messageContent, String token) {
+    public String sendMessage(MessageContent messageContent, String token) throws FirebaseMessagingException {
+
+        // TODO Build notification in relation to the user platform?
 
         // Construct client notification first
         Notification notification = Notification.builder().setBody(messageContent.getContent())
@@ -31,7 +35,7 @@ public class FCMService {
                 .putAllData(messageContent.getData())
                 .build();
 
-        return firebaseMessaging.sendNotification()
+        return firebaseMessaging.send(message);
     }
 
 }
