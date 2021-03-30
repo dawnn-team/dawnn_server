@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.ClassPathResource;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
@@ -18,7 +18,7 @@ import java.io.IOException;
 @SpringBootApplication
 public class DawnServerApplication {
 
-    @Value("${app.firebase-configuration-file}")
+    @Value("${app.firebase-configuration-file-var}")
     private String firebaseConfigPath;
 
     public static void main(String[] args) {
@@ -28,10 +28,10 @@ public class DawnServerApplication {
     @Bean
     FirebaseMessaging firebaseMessaging() throws IOException {
         // TODO Move this method somewhere else?
-        FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(new ClassPathResource(firebaseConfigPath).getInputStream()))
-                .build();
 
+        FirebaseOptions options = FirebaseOptions.builder()
+                .setCredentials(GoogleCredentials.fromStream(new FileInputStream(System.getenv(firebaseConfigPath))))
+                .build();
 
         FirebaseApp app = FirebaseApp.initializeApp(options);
 
