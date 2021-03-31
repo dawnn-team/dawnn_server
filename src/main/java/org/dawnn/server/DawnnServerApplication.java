@@ -18,13 +18,13 @@ import java.io.IOException;
  * Uses Spring to run the Dawn server
  */
 @SpringBootApplication
-public class DawnServerApplication {
+public class DawnnServerApplication {
 
     @Value("${app.firebase-configuration-file-var}")
     private String firebaseAuthPath;
 
     public static void main(String[] args) {
-        SpringApplication.run(DawnServerApplication.class, args);
+        SpringApplication.run(DawnnServerApplication.class, args);
     }
 
     @Bean
