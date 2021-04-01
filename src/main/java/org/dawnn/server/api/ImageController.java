@@ -22,7 +22,7 @@ public class ImageController {
     }
 
     /**
-     * Creates an Image from the data recieved from the client and adds it to the imageService
+     * Creates an Image from the data received from the client and adds it to the imageService
      * @param image json used to create an Image
      */
     @PostMapping(consumes = "application/json")
