@@ -27,8 +27,9 @@ public class Image {
     @JsonCreator
     public Image(@JsonProperty("image") String base64Image,
                  @JsonProperty("HWID") String HWIDOrigin,
-                 @JsonProperty("location") GeoLocation location) {
-        this.location = location;
+                 @JsonProperty("longitude") double longitude,
+                 @JsonProperty("latitude") double latitude) {
+        this.location = new GeoLocation(latitude, longitude);
         this.base64Image = base64Image;
         this.HWIDOrigin = HWIDOrigin;
         this.uuid = UUID.randomUUID();

@@ -1,14 +1,16 @@
 package org.dawnn.server.service.firebase;
 
+import com.google.api.core.ApiFuture;
 import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import org.dawnn.server.model.Platform;
 import org.dawnn.server.service.MessageContent;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * This class will be used for sending messages to the client
@@ -24,16 +26,16 @@ public class FCMService {
     }
 
     /**
-     * Send a message to a user at specified token.
+     * Send a message to all users at specified topic.
      *
      * @param messageContent The content of the message to send.
-     * @param token          The recipient of the message.
+     * @param topic          The topic to send the message to.
      * @param platform       The target users' platform.
      * @return The ID of the message.
-     * @throws FirebaseMessagingException - If an error occurs during sending.
      */
     public String sendMessage(@NotNull MessageContent messageContent,
-                              @NotNull String token, @Nullable Platform platform) throws FirebaseMessagingException {
+                              @NotNull String topic, @Nullable Platform platform) throws ExecutionException, InterruptedException {
+
         // TODO Build notification in relation to the user platform?
 
         // Construct client notification first
@@ -42,12 +44,14 @@ public class FCMService {
                 .build();
 
         // Now construct the message to be sent
-        Message message = Message.builder().setToken(token)
+        Message message = Message.builder()
+                .setTopic(topic)
                 .setNotification(notification)
                 .putAllData(messageContent.getData())
                 .build();
 
-        return firebaseMessaging.send(message);
+        ApiFuture<String> result = firebaseMessaging.sendAsync(message);
+        return result.get();
     }
 
 }
