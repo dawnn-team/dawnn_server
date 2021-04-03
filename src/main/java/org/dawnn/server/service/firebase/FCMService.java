@@ -7,7 +7,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import org.dawnn.server.model.Platform;
-import org.dawnn.server.service.MessageContent;
+import org.dawnn.server.model.MessageContent;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;

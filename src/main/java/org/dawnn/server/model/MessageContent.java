@@ -1,4 +1,4 @@
-package org.dawnn.server.service;
+package org.dawnn.server.model;
 
 import lombok.Data;
 

@@ -1,6 +1,5 @@
 package org.dawnn.server.model;
 
-import com.drew.lang.GeoLocation;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -27,9 +26,8 @@ public class Image {
     @JsonCreator
     public Image(@JsonProperty("image") String base64Image,
                  @JsonProperty("HWID") String HWIDOrigin,
-                 @JsonProperty("longitude") double longitude,
-                 @JsonProperty("latitude") double latitude) {
-        this.location = new GeoLocation(latitude, longitude);
+                 @JsonProperty("location") GeoLocation location) {
+        this.location = new GeoLocation(location.getLatitude(), location.getLongitude());
         this.base64Image = base64Image;
         this.HWIDOrigin = HWIDOrigin;
         this.uuid = UUID.randomUUID();
