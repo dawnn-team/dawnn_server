@@ -4,8 +4,8 @@
 
 ![android build](https://github.com/dawnn-team/dawn_server/actions/workflows/maven.yml/badge.svg)
 # About
- This is the back-end code of the Dawn project. Using Spring, Firebase and Cassandra, this is able to recieve, store,
- and send images to clients based on their reported geolocation.
+ This is the back-end code of the Dawn project. Using Spring, Firebase and MongoDB, this is able to recieve, store,
+ and send images to clients (along with alerts) based on their reported geolocation.
  
 # Background
  This project is inspired by the events in Belarus following the August 2020 election. It strives to support the democratic resistance movement by providing an easy-to-use application that can help peaceful protesters stay aware of potential threats.
