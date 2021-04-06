@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ImageRepository extends MongoRepository<Image, String> {
-    
-    Image findByUUID(UUID location);
+
+    Image findByuuid(UUID location);
 
     List<Image> findByLocation(GeoLocation location);
 
     // Create Grid class
-    List<Image> findByGrid();
+//    List<Image> findByGrid();
+
+    List<Image> findByHWIDOrigin();
 }
