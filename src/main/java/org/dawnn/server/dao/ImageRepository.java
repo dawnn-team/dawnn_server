@@ -9,12 +9,13 @@ import java.util.UUID;
 
 public interface ImageRepository extends MongoRepository<Image, String> {
 
-    Image findByuuid(UUID location);
+    List<Image> findByGeoLocation(GeoLocation location);
 
-    List<Image> findByLocation(GeoLocation location);
+    List<Image> findByHWIDOrigin();
+
+    Image findByuuid(UUID location);
 
     // Create Grid class
 //    List<Image> findByGrid();
 
-    List<Image> findByHWIDOrigin();
 }
