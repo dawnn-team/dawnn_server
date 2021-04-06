@@ -10,7 +10,7 @@ public class GeoLocation {
     private final double latitude;
     private final double longitude;
 
-    // Grid the world?
+    // TODO Grid the world
 
     /**
      * Check whether a location is within range of another location

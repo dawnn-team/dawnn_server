@@ -6,7 +6,6 @@ import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
-import org.dawnn.server.model.Platform;
 import org.dawnn.server.model.MessageContent;
 import org.springframework.stereotype.Service;
 
