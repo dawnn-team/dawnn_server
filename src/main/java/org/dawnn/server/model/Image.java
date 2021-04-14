@@ -3,7 +3,6 @@ package org.dawnn.server.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.Getter;
 import org.springframework.data.annotation.Id;
 
 import java.util.UUID;
@@ -19,17 +18,20 @@ public class Image {
     public String id;
 
     private final GeoLocation location;
-    private final String base64Image;
+    private final String image;
     private final String HWIDOrigin;
+    private final String caption;
     private UUID uuid;
 
     @JsonCreator
-    public Image(@JsonProperty("image") String base64Image,
+    public Image(@JsonProperty("location") GeoLocation location,
+                 @JsonProperty("image") String image,
                  @JsonProperty("HWID") String HWIDOrigin,
-                 @JsonProperty("location") GeoLocation location) {
+                 @JsonProperty("caption") String caption) {
         this.location = new GeoLocation(location.getLatitude(), location.getLongitude());
-        this.base64Image = base64Image;
+        this.image = image;
         this.HWIDOrigin = HWIDOrigin;
+        this.caption = caption;
         this.uuid = UUID.randomUUID();
     }
 
