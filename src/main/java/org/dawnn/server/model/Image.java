@@ -27,7 +27,7 @@ public class Image {
     @JsonCreator
     public Image(@NonNull @JsonProperty("location") GeoLocation location,
                  @NonNull @JsonProperty("image") String image,
-                 @NonNull @JsonProperty("HWID") String HWIDOrigin,
+                 @NonNull @JsonProperty("hwid") String HWIDOrigin,
                  @JsonProperty("caption") String caption) {
         this.location = new GeoLocation(location.getLatitude(), location.getLongitude());
         this.image = image;
