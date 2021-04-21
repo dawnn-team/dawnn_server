@@ -1,16 +1,27 @@
 package org.dawnn.server.model;
 
 import lombok.Data;
+import org.joda.time.DateTime;
+import org.joda.time.format.ISODateTimeFormat;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.awt.geom.Point2D;
 
 @Data
+@Document(collation = "geolocation")
 public class GeoLocation {
 
     private final double latitude;
     private final double longitude;
-
+    private final DateTime time;
     // TODO Grid the world
+
+
+    public GeoLocation(double latitude, double longitude, String time) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.time = ISODateTimeFormat.dateTime().parseDateTime(time);
+    }
 
     /**
      * Check whether a location is within range of another location

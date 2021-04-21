@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NonNull;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ import java.util.UUID;
  * the hwid origin, and unique uuid.
  */
 @Data
+@Document(collation = "images")
 public class Image {
 
     @Id
@@ -26,10 +28,10 @@ public class Image {
 
     @JsonCreator
     public Image(@NonNull @JsonProperty("location") GeoLocation location,
-                 @NonNull @JsonProperty("image") String image,
+                 @NonNull @JsonProperty("base64") String image,
                  @NonNull @JsonProperty("hwid") String HWIDOrigin,
                  @JsonProperty("caption") String caption) {
-        this.location = new GeoLocation(location.getLatitude(), location.getLongitude());
+        this.location = location;
         this.image = image;
         this.HWIDOrigin = HWIDOrigin;
         this.caption = caption;
