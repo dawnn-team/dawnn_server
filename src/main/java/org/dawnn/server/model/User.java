@@ -3,13 +3,13 @@ package org.dawnn.server.model;
 import lombok.Data;
 
 /**
- * Represents a user.
+ * Represents a user, with a location and a hwid.
  */
 @Data
 public class User {
 
     private final String HWID;
-    private final String token;
+    private final GeoLocation geoLocation;
 
 }
 

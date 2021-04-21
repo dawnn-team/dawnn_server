@@ -11,7 +11,7 @@ public interface ImageRepository extends MongoRepository<Image, String> {
 
     List<Image> findByLocation(GeoLocation location);
 
-    List<Image> findByHWIDOrigin();
+    List<Image> findByHWIDOrigin(String hwid);
 
     Image findByuuid(UUID location);
 
