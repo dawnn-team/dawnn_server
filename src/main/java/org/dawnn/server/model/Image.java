@@ -14,16 +14,15 @@ import java.util.UUID;
  * the hwid origin, and unique uuid.
  */
 @Data
-@Document(collation = "images")
+@Document(collection = "images")
 public class Image {
-
-    @Id
-    public String id;
 
     private final GeoLocation location;
     private final String image;
     private final String HWIDOrigin;
     private final String caption;
+    @Id
+    public String id;
     private UUID uuid;
 
     @JsonCreator

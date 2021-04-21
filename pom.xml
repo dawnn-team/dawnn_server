@@ -12,7 +12,7 @@
     <artifactId>server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Dawnn-Server</name>
-    <description>Server back-end for the Dawn project.</description>
+    <description>Server back-end for the Dawnn project.</description>
     <properties>
         <java.version>15</java.version>
     </properties>

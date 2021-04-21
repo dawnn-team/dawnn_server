@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("api/v1/location")
 @RestController
-public class GeoLocationController {
+public class UserController {
 
     @Autowired
     private UserRepository imageRepository;

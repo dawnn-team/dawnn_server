@@ -15,7 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
- * Uses Spring to run the Dawn server
+ * Uses Spring to run the Dawnn server
  */
 @SpringBootApplication
 public class DawnnServerApplication {
