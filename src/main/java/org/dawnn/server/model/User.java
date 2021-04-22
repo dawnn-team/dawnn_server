@@ -15,15 +15,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 
     private final String HWID;
-    private final GeoLocation geoLocation;
+    private final Location location;
     @Id
     public String id;
 
     @JsonCreator
     public User(@NonNull @JsonProperty("hwid") String hwid,
-                @NonNull @JsonProperty("geoLocation") GeoLocation geoLocation) {
+                @NonNull @JsonProperty("location") Location location) {
         this.HWID = hwid;
-        this.geoLocation = geoLocation;
+        this.location = location;
     }
 
 }

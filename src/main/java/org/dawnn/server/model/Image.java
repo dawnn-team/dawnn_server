@@ -17,7 +17,7 @@ import java.util.UUID;
 @Document(collection = "images")
 public class Image {
 
-    private final GeoLocation location;
+    private final Location location;
     private final String image;
     private final String HWIDOrigin;
     private final String caption;
@@ -26,7 +26,7 @@ public class Image {
     private UUID uuid;
 
     @JsonCreator
-    public Image(@NonNull @JsonProperty("location") GeoLocation location,
+    public Image(@NonNull @JsonProperty("location") Location location,
                  @NonNull @JsonProperty("base64") String image,
                  @NonNull @JsonProperty("hwid") String HWIDOrigin,
                  @JsonProperty("caption") String caption) {
