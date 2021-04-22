@@ -4,10 +4,10 @@
 
 ![android build](https://github.com/dawnn-team/dawn_server/actions/workflows/maven.yml/badge.svg)
 # About
- This is the back-end code of the Dawn project. Using Spring, Firebase and MongoDB, this is able to recieve, store,
+ This is the back-end code of the Dawnn project. Using Spring, Firebase and MongoDB, this is able to recieve, store,
  and send images to clients (along with alerts) based on their reported geolocation.
  
 # Background
  This project is inspired by the events in Belarus following the August 2020 election. It strives to support the democratic resistance movement by providing an easy-to-use application that can help peaceful protesters stay aware of potential threats.
 
-This repository is for the server, and the client is available at https://github.com/dawnn-team/dawn_client. All components of this project are open source, and contributions are encouraged. More information can be found at dawnn.org (coming soon).
+This repository is for the server, and the client is available at https://github.com/dawnn-team/dawnn_client. All components of this project are open source, and contributions are encouraged. More information can be found at https://dawnn.org
