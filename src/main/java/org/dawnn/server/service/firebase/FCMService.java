@@ -6,7 +6,6 @@ import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
-import org.dawnn.server.model.Platform;
 import org.dawnn.server.model.MessageContent;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +29,10 @@ public class FCMService {
      *
      * @param messageContent The content of the message to send.
      * @param topic          The topic to send the message to.
-     * @param platform       The target users' platform.
      * @return The ID of the message.
      */
     public String sendMessage(@NotNull MessageContent messageContent,
-                              @NotNull String topic, @Nullable Platform platform) throws ExecutionException, InterruptedException {
+                              @NotNull String topic) throws ExecutionException, InterruptedException {
 
         // TODO Build notification in relation to the user platform?
 
