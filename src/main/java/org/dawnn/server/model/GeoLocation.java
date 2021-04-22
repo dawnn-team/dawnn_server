@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.awt.geom.Point2D;
 
 @Data
-@Document(collation = "geolocation")
+@Document(collection = "geolocation")
 public class GeoLocation {
 
     private final double latitude;
