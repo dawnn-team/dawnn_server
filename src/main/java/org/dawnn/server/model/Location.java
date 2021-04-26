@@ -17,6 +17,8 @@ public class Location {
     private final Long time;
     // TODO Grid the world ?
 
+    public final double LOCATION_SIZE = 0.01;
+
 
     public Location(double latitude, double longitude, Long time) {
         this.latitude = latitude;
@@ -57,7 +59,7 @@ public class Location {
     @Override
     public boolean equals(Object other) {
         // FIXME This is a poor implementation.
-        return other instanceof Location && this.distanceFrom((Location) other) < 0.01; // 1.1 KM distance
+        return other instanceof Location && this.isWithinRange((Location) other, LOCATION_SIZE);
     }
 
 }
