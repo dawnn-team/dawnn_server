@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("api/v1/location")
+@RequestMapping("api/v1/user")
 @RestController
 public class UserController {
 
@@ -17,6 +17,7 @@ public class UserController {
 
     @PostMapping(consumes = "application/json")
     public void updateLocation(@RequestBody User user) {
+        System.out.println("Received user update.");
         imageRepository.save(user);
     }
 }

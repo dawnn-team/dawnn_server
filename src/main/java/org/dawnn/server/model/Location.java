@@ -1,26 +1,27 @@
 package org.dawnn.server.model;
 
 import lombok.Data;
-import org.joda.time.DateTime;
-import org.joda.time.format.ISODateTimeFormat;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.awt.geom.Point2D;
 
+/**
+ * This class represents the location of a {@link User}. The location is
+ * represented as a double of latitude and longitude. This class also
+ * stores the timestamp of the creation of this location.
+ */
 @Data
-@Document(collection = "location")
 public class Location {
 
     private final double latitude;
     private final double longitude;
-    private final DateTime time;
-    // TODO Grid the world
+    private final Long time;
+    // TODO Grid the world ?
 
 
-    public Location(double latitude, double longitude, String time) {
+    public Location(double latitude, double longitude, Long time) {
         this.latitude = latitude;
         this.longitude = longitude;
-        this.time = ISODateTimeFormat.dateTime().parseDateTime(time);
+        this.time = time;
     }
 
     /**

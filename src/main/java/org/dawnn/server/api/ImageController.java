@@ -2,8 +2,12 @@ package org.dawnn.server.api;
 
 import org.dawnn.server.dao.ImageRepository;
 import org.dawnn.server.model.Image;
+import org.dawnn.server.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -24,17 +28,23 @@ public class ImageController {
      */
     @PostMapping(consumes = "application/json")
     public void addImage(@RequestBody Image image) {
+        System.out.println("Received image post.");
         imageRepository.save(image);
     }
 
     /**
-     * Returns all Image objects in the database
+     * Request images according to user's location.
      *
-     * @return List<Image> A List of all Image objects contained in the database
+     * @param user The user requesting images.
      */
-    @GetMapping
-    public List<Image> getAllImages() {
-        return imageRepository.findAll();
-    }
+    @PostMapping(consumes = "application/json", value = "request")
+    public List<Image> requestImages(@RequestBody User user) {
+        System.out.println("Received image request.");
+        List<Image> images = imageRepository.findByLocation(user.getLocation()); // FIXME This isn't actually implemented.
+        for (Image image : images) {
+            image.anonymizeSender();
+        }
 
+        return images;
+    }
 }

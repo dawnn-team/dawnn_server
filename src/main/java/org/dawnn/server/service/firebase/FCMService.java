@@ -2,7 +2,6 @@ package org.dawnn.server.service.firebase;
 
 import com.google.api.core.ApiFuture;
 import com.google.firebase.database.annotations.NotNull;
-import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;

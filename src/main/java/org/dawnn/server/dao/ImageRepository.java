@@ -1,7 +1,7 @@
 package org.dawnn.server.dao;
 
-import org.dawnn.server.model.Location;
 import org.dawnn.server.model.Image;
+import org.dawnn.server.model.Location;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public interface ImageRepository extends MongoRepository<Image, String> {
 
     List<Image> findByLocation(Location location);
 
-    List<Image> findByHWIDOrigin(String hwid);
+    List<Image> findByhwid(String hwid);
 
     Image findByuuid(UUID location);
 

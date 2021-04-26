@@ -19,22 +19,26 @@ public class Image {
 
     private final Location location;
     private final String image;
-    private final String HWIDOrigin;
     private final String caption;
     @Id
     public String id;
+    private String hwid;
     private UUID uuid;
 
     @JsonCreator
     public Image(@NonNull @JsonProperty("location") Location location,
                  @NonNull @JsonProperty("base64") String image,
-                 @NonNull @JsonProperty("hwid") String HWIDOrigin,
+                 @NonNull @JsonProperty("hwid") String hwid,
                  @JsonProperty("caption") String caption) {
         this.location = location;
         this.image = image;
-        this.HWIDOrigin = HWIDOrigin;
+        this.hwid = hwid;
         this.caption = caption;
         this.uuid = UUID.randomUUID();
+    }
+
+    public void anonymizeSender() {
+        this.hwid = null;
     }
 
 }
