@@ -40,7 +40,7 @@ public class ImageController {
     @PostMapping(consumes = "application/json", value = "request")
     public List<Image> requestImages(@RequestBody User user) {
         System.out.println("Received image request.");
-        List<Image> images = imageRepository.findByLocation(user.getLocation()); // FIXME This isn't actually implemented.
+        List<Image> images = imageRepository.findByLocation(user.getLocation());
         for (Image image : images) {
             image.anonymizeSender();
         }

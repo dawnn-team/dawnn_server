@@ -45,4 +45,19 @@ public class Location {
         return Point2D.distance(this.latitude, this.longitude, location.latitude, location.longitude);
     }
 
+    /**
+     * Evaluates if this Location is equal to another.
+     * Equality is defined as being an instance of Location
+     * and the distance between the two locations being less than 1.11 KM.
+     * To be redesigned.
+     *
+     * @param other The other object to compare against.
+     * @return True if distance < 1.11 KM, false otherwise.
+     */
+    @Override
+    public boolean equals(Object other) {
+        // FIXME This is a poor implementation.
+        return other instanceof Location && this.distanceFrom((Location) other) < 0.01; // 1.1 KM distance
+    }
+
 }
