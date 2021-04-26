@@ -37,6 +37,10 @@ public class Image {
         this.uuid = UUID.randomUUID();
     }
 
+    /**
+     * Anonymize the sender by setting hwid to null.
+     * Required to call this before sending any data back to client.
+     */
     public void anonymizeSender() {
         this.hwid = null;
     }
