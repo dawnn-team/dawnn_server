@@ -12,13 +12,14 @@ import java.awt.geom.Point2D;
 @Data
 public class Location {
 
+    // Represents the radius in which we should display
+    // images to the client.
+    private static final double LOCATION_DISTANCE = 0.01;
     private final double latitude;
     private final double longitude;
     private final long time;
+
     // TODO Use MongoDB spatial indices
-
-    public final double LOCATION_SIZE = 0.01;
-
 
     public Location(double latitude, double longitude, long time) {
         this.latitude = latitude;
@@ -59,7 +60,7 @@ public class Location {
     @Override
     public boolean equals(Object other) {
         // FIXME This is a poor implementation.
-        return other instanceof Location && this.isWithinRange((Location) other, LOCATION_SIZE);
+        return other instanceof Location && this.isWithinRange((Location) other, LOCATION_DISTANCE);
     }
 
 }
