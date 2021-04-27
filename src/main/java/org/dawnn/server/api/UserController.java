@@ -17,11 +17,20 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private UserRepository imageRepository;
+    private UserRepository userRepository;
 
     @PostMapping(consumes = "application/json")
     public void updateLocation(@RequestBody User user) {
         logger.info("Received user update.");
-        imageRepository.save(user);
+
+        // Update user location instead of inserting new document
+        if (!userRepository.findByhwid(user.getHwid()).isEmpty()) {
+            logger.info("Updating existing user.");
+            // Delete existing record and write new data.
+            userRepository.delete(userRepository.findByhwid(user.getHwid()).stream().findFirst().get());
+            userRepository.save(user);
+        } else {
+            userRepository.save(user);
+        }
     }
 }

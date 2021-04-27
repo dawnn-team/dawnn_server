@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "users")
 public class User {
 
-    private final String HWID;
+    private final String hwid;
     private final Location location;
     @Id
     public String id;
@@ -22,7 +22,7 @@ public class User {
     @JsonCreator
     public User(@NonNull @JsonProperty("hwid") String hwid,
                 @NonNull @JsonProperty("location") Location location) {
-        this.HWID = hwid;
+        this.hwid = hwid;
         this.location = location;
     }
 

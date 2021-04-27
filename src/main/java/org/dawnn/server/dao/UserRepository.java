@@ -10,6 +10,6 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     List<User> findByLocation(Location location);
 
-    List<User> findByHWID(String HWID);
+    List<User> findByhwid(String HWID);
 
 }
