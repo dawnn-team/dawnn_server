@@ -14,13 +14,13 @@ public class Location {
 
     private final double latitude;
     private final double longitude;
-    private final Long time;
-    // TODO Grid the world ?
+    private final long time;
+    // TODO Use MongoDB spatial indices
 
     public final double LOCATION_SIZE = 0.01;
 
 
-    public Location(double latitude, double longitude, Long time) {
+    public Location(double latitude, double longitude, long time) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.time = time;

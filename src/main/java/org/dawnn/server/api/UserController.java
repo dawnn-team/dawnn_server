@@ -2,6 +2,8 @@ package org.dawnn.server.api;
 
 import org.dawnn.server.dao.UserRepository;
 import org.dawnn.server.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,12 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserRepository imageRepository;
 
     @PostMapping(consumes = "application/json")
     public void updateLocation(@RequestBody User user) {
-        System.out.println("Received user update.");
+        logger.info("Received user update.");
         imageRepository.save(user);
     }
 }
