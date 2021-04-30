@@ -24,12 +24,12 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
- - Server Version [e.g. 1.4.5]
+ - Server Version: [e.g. 1.4.5]
 
 **Smartphone (please complete the following information):**
  - Device: [e.g. iPhone6]
  - OS: [e.g. iOS8.1]
- - App Version [e.g. 1.0.3]
+ - App Version: [e.g. 1.0.3]
 
 **Additional context**
 Add any other context about the problem here.
