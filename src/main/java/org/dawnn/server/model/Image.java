@@ -41,8 +41,16 @@ public class Image {
      * Anonymize the sender by setting hwid to null.
      * Required to call this before sending any data back to client.
      */
-    public void anonymizeSender() {
+    public void eraseHwid() {
         this.hwid = null;
+    }
+
+    /**
+     * Erase the Mongo ID for this image. Only used when sending image back to client.
+     * This isn't required by client; better to send less data than more.
+     */
+    public void eraseId() {
+        this.id = null;
     }
 
 }

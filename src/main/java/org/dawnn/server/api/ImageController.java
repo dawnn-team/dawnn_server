@@ -46,7 +46,8 @@ public class ImageController {
         logger.info("Received image request.");
         List<Image> images = imageRepository.findByLocation(user.getLocation());
         for (Image image : images) {
-            image.anonymizeSender();
+            image.eraseHwid();
+            image.eraseId();
         }
 
         return images;
