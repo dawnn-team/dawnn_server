@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * API layer between between the client and the database
@@ -41,13 +42,18 @@ public class ImageController {
      *
      * @param user The user requesting images.
      */
-    @PostMapping(consumes = "application/json", value = "request")
+    @PostMapping(consumes = "application/json", value = "request", produces = "application/json")
     public List<Image> requestImages(@RequestBody User user) {
         logger.info("Received image request.");
-        List<Image> images = imageRepository.findByLocation(user.getLocation());
+
+        // Temporary, and also very bad.
+        List<Image> images = imageRepository.findAll();
+        Random random = new Random();
+
         for (Image image : images) {
             image.eraseHwid();
             image.eraseId();
+            image.scrambleLocation(random);
         }
 
         return images;

@@ -86,6 +86,8 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>
+            Dawnn_Server-${project.version}
+        </finalName>
     </build>
-
 </project>
