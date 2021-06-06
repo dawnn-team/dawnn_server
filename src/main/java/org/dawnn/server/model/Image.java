@@ -55,15 +55,6 @@ public class Image {
     }
 
     /**
-     * Erase the Mongo ID for this image. Only used when sending image back to client.
-     * This isn't required by client; better to send less data than more.
-     */
-    public void eraseId() {
-        this.id = null;
-    }
-
-
-    /**
      * Scramble the location of this image. Will not change the MongoDB entry,
      * will only effect the instance read from the database. Purely for testing purposes, and also
      * https://github.com/dawnn-team/dawnn_server/issues/10
