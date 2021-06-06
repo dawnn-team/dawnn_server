@@ -52,7 +52,6 @@ public class ImageController {
 
         for (Image image : images) {
             image.eraseHwid();
-            image.scrambleLocation(random);
         }
 
         return images;

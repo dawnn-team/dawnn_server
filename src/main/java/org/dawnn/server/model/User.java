@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "users")
 public class User {
 
-    private final String hwid;
+    private String hwid;
     private final Location location;
     @Id
     public String id;
@@ -27,4 +27,3 @@ public class User {
     }
 
 }
-

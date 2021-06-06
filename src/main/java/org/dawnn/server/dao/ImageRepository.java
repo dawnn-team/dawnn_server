@@ -9,9 +9,9 @@ import java.util.UUID;
 
 public interface ImageRepository extends MongoRepository<Image, String> {
 
-    List<Image> findByLocation(Location location);
+    List<Image> findByUser_location(Location location);
 
-    List<Image> findByhwid(String hwid);
+    List<Image> findByUser_hwid(String hwid);
 
     Image findByuuid(UUID location);
 

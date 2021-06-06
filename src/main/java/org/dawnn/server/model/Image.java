@@ -23,8 +23,7 @@ public class Image {
     @Id
     public String id;
     // TODO Make location final
-    private Location location;
-    private String hwid;
+    private final User user;
     private UUID uuid;
 
     // Apple requires a way to moderate user submitted content.
@@ -37,9 +36,8 @@ public class Image {
                  @NonNull @JsonProperty("base64") String image,
                  @NonNull @JsonProperty("hwid") String hwid,
                  @JsonProperty("caption") String caption) {
-        this.location = location;
+        this.user = new User(hwid, location);
         this.image = image;
-        this.hwid = hwid;
         this.caption = caption;
         this.uuid = UUID.randomUUID();
         this.likes = 0;
@@ -51,7 +49,7 @@ public class Image {
      * Required to call this before sending any data back to client.
      */
     public void eraseHwid() {
-        this.hwid = null;
+        this.user.setHwid(null);
     }
 
     /**
@@ -59,12 +57,13 @@ public class Image {
      * will only effect the instance read from the database. Purely for testing purposes, and also
      * https://github.com/dawnn-team/dawnn_server/issues/10
      */
+    @Deprecated
     public void scrambleLocation(Random random) {
         int positiveLat = random.nextInt(7) % 2 == 0 ? 1 : -1;
         int positiveLong = random.nextInt(7) % 2 == 0 ? 1 : -1;
-        this.location = new Location(random.nextDouble() * 90 * positiveLat,
-                random.nextDouble() * 180 * positiveLong,
-                location.getTime());
+//        this.location = new Location(random.nextDouble() * 90 * positiveLat,
+//                random.nextDouble() * 180 * positiveLong,
+//                location.getTime());
     }
 
 }
