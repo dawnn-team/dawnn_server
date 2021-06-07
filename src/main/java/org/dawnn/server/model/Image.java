@@ -20,10 +20,9 @@ public class Image {
 
     private final String image;
     private final String caption;
+    private final User user;
     @Id
     public String id;
-    // TODO Make location final
-    private final User user;
     private UUID uuid;
 
     // Apple requires a way to moderate user submitted content.
@@ -32,11 +31,11 @@ public class Image {
     private int dislikes;
 
     @JsonCreator
-    public Image(@NonNull @JsonProperty("location") Location location,
-                 @NonNull @JsonProperty("base64") String image,
-                 @NonNull @JsonProperty("hwid") String hwid,
-                 @JsonProperty("caption") String caption) {
-        this.user = new User(hwid, location);
+    public Image(
+            @NonNull @JsonProperty("user") User user,
+            @NonNull @JsonProperty("base64") String image,
+            @JsonProperty("caption") String caption) {
+        this.user = user;
         this.image = image;
         this.caption = caption;
         this.uuid = UUID.randomUUID();
