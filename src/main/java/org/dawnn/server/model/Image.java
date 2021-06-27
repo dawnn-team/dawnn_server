@@ -51,4 +51,18 @@ public class Image {
         this.user.setHwid(null);
     }
 
+    /**
+     * Scramble the location of this image. Will not change the MongoDB entry,
+     * will only effect the instance read from the database. Purely for testing purposes, and also
+     * https://github.com/dawnn-team/dawnn_server/issues/10
+     */
+    @Deprecated
+    public void scrambleLocation(Random random) {
+        int positiveLat = random.nextInt(7) % 2 == 0 ? 1 : -1;
+        int positiveLong = random.nextInt(7) % 2 == 0 ? 1 : -1;
+        this.user.setLocation(new Location(random.nextDouble() * 90 * positiveLat,
+                random.nextDouble() * 180 * positiveLong,
+                user.getLocation().getTime()));
+    }
+
 }

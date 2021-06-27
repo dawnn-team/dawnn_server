@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 
     private String hwid;
-    private final Location location;
+    private Location location;
     @Id
     public String id;
 

@@ -48,10 +48,11 @@ public class ImageController {
 
         // Temporary, and also very bad.
         List<Image> images = imageRepository.findAll();
-        Random random = new Random();
 
+        Random random = new Random();
         for (Image image : images) {
             image.eraseHwid();
+            image.scrambleLocation(random);
         }
 
         return images;
