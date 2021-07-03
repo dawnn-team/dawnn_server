@@ -44,14 +44,6 @@ public class Image {
     }
 
     /**
-     * Anonymize the sender by setting hwid to null.
-     * Required to call this before sending any data back to client.
-     */
-    public void eraseHwid() {
-        this.user.setHwid(null);
-    }
-
-    /**
      * Scramble the location of this image. Will not change the MongoDB entry,
      * will only effect the instance read from the database. Purely for testing purposes, and also
      * https://github.com/dawnn-team/dawnn_server/issues/10

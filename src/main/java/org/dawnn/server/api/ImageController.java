@@ -1,6 +1,7 @@
 package org.dawnn.server.api;
 
 import org.dawnn.server.dao.ImageRepository;
+import org.dawnn.server.dao.UserRepository;
 import org.dawnn.server.model.Image;
 import org.dawnn.server.model.User;
 import org.slf4j.Logger;
@@ -26,6 +27,10 @@ public class ImageController {
     @Autowired
     private ImageRepository imageRepository;
 
+
+    @Autowired
+    private UserRepository userRepository;
+
     /**
      * Creates an Image from the data received from the client and adds it to the imageService
      *
@@ -49,9 +54,9 @@ public class ImageController {
         // Temporary, and also very bad.
         List<Image> images = imageRepository.findAll();
 
+        userRepository.save(user);
         Random random = new Random();
         for (Image image : images) {
-            image.eraseHwid();
             image.scrambleLocation(random);
         }
 

@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "users")
 public class User {
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String hwid;
     private Location location;
     @Id
