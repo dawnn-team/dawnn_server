@@ -1,9 +1,6 @@
 package org.dawnn.server.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.NonNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,7 +15,7 @@ import java.util.UUID;
 @Document(collection = "images")
 public class Image {
 
-    private final String image;
+    private final String base64;
     private final String caption;
     private final User user;
     @Id
@@ -30,13 +27,9 @@ public class Image {
     private int likes;
     private int dislikes;
 
-    @JsonCreator
-    public Image(
-            @NonNull @JsonProperty("user") User user,
-            @NonNull @JsonProperty("base64") String image,
-            @JsonProperty("caption") String caption) {
+    public Image(User user, String base64, String caption) {
         this.user = user;
-        this.image = image;
+        this.base64 = base64;
         this.caption = caption;
         this.uuid = UUID.randomUUID();
         this.likes = 0;
@@ -53,8 +46,7 @@ public class Image {
         int positiveLat = random.nextInt(7) % 2 == 0 ? 1 : -1;
         int positiveLong = random.nextInt(7) % 2 == 0 ? 1 : -1;
         this.user.setLocation(new Location(random.nextDouble() * 90 * positiveLat,
-                random.nextDouble() * 180 * positiveLong,
-                user.getLocation().getTime()));
+                random.nextDouble() * 180 * positiveLong));
     }
 
 }

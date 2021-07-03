@@ -1,8 +1,10 @@
 package org.dawnn.server.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.awt.geom.Point2D;
+import java.time.Instant;
 
 /**
  * This class represents the location of a {@link User}. The location is
@@ -17,14 +19,17 @@ public class Location {
     private static final double LOCATION_DISTANCE = 0.01;
     private final double latitude;
     private final double longitude;
-    private final long time;
+
+    // User probably doesn't need to know when an image will expire.
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private long time;
 
     // TODO Use MongoDB spatial indices
 
-    public Location(double latitude, double longitude, long time) {
+    public Location(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
-        this.time = time;
+        this.time = Instant.now().getEpochSecond();
     }
 
     /**
