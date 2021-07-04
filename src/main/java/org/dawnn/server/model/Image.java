@@ -1,9 +1,13 @@
 package org.dawnn.server.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 
@@ -22,6 +26,11 @@ public class Image {
     public String id;
     private UUID uuid;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @Indexed(expireAfterSeconds = 61)
+//    @Field
+    private Date time;
+
     // Apple requires a way to moderate user submitted content.
     // Why not have users give feedback on other users?
     private int likes;
@@ -32,6 +41,7 @@ public class Image {
         this.base64 = base64;
         this.caption = caption;
         this.uuid = UUID.randomUUID();
+        this.time = new Date();
         this.likes = 0;
         this.dislikes = 0;
     }

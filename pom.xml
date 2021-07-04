@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.dawnn</groupId>
     <artifactId>server</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <name>Dawnn-Server</name>
     <description>Server back-end for the Dawnn project.</description>
     <properties>
