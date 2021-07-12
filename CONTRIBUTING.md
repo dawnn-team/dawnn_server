@@ -1,6 +1,6 @@
 ## Code of Conduct
 
-We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our [Code of Conduct](https://github.com/dawnn-team/dawn_server/blob/main/CODE_OF_CONDUCT.md).
+We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our [Code of Conduct](https://github.com/dawnn-team/dawn_client/blob/main/CODE_OF_CONDUCT.md).
 
 ## Getting Started
 
@@ -40,4 +40,4 @@ In general, we follow the ["fork-and-pull" Git workflow](https://github.com/susa
 
 ## Getting Help
 
-Join us in one of our social media channels (coming soon) and post your question there.
+Open an issue, or email us with any questions at ``admin@dawnn.org``. 
