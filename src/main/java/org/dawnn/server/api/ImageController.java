@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * API layer between between the client and the database
+ * API layer between between the client and the database.
  */
 @RequestMapping("api/v1/image")
 @RestController
@@ -29,24 +29,23 @@ public class ImageController {
     @Autowired
     private ImageRepository imageRepository;
 
-
     @Autowired
     private UserRepository userRepository;
 
     /**
-     * Creates an Image from the data received from the client and saves it.
+     * Parse and save an Image from the data sent by the client.
      *
-     * @param image json used to create an Image
+     * @param image json representation of {@link Image}.
      */
     @PostMapping(consumes = "application/json")
     public void addImage(@RequestBody Image image) {
         logger.info("Received image post.");
         imageRepository.save(image);
 
-        // This will have to be reconstructed from the data in image
-        // soon.
-        updateUser(image.getUser());
-        userRepository.save(image.getUser());
+        // Since user and image properties are identical at the time of sending,
+        // let's just update the user from the image image object.
+        User user = new User(image.getAuthorHWID(), image.getLocation().getX(), image.getLocation().getY());
+        updateUser(user);
     }
 
     /**
@@ -61,7 +60,7 @@ public class ImageController {
         GeoJsonPoint loc = user.getLocation();
 
         // TODO Use symbolic constant.
-        GeoResults<Image> images = imageRepository.findByUser_LocationNear(new Point(loc.getX(), loc.getY()),
+        GeoResults<Image> images = imageRepository.findByLocationNear(new Point(loc.getX(), loc.getY()),
                 new Distance(1, Metrics.KILOMETERS));
 
         updateUser(user);
@@ -75,8 +74,8 @@ public class ImageController {
     }
 
     /**
-     * Update the user based on hwid. If a user with the same hwid exists, the data is deleted.
-     * The new {@link User} is saved. Null safe.
+     * Update the user based on hwid. If a user with the same hwid exists, the existing user
+     * is deleted, the new {@link User} is saved. Null safe.
      *
      * @param user The user to update.
      */
@@ -84,10 +83,12 @@ public class ImageController {
         if (user == null) {
             return;
         }
-        if (!userRepository.findByhwid(user.getHwid()).isEmpty()) {
+        if (!userRepository.findByHWID(user.getHWID()).isEmpty()) {
             logger.info("Updating existing user.");
-            // Delete existing record and write new data.
-            userRepository.delete(userRepository.findByhwid(user.getHwid()).stream().findFirst().get());
+            // Delete existing record.
+            userRepository.delete(userRepository.findByHWID(user.getHWID()).stream().findFirst().get());
+        } else {
+            logger.info("Adding new user.");
         }
         userRepository.save(user);
     }

@@ -24,10 +24,10 @@ public class UserController {
         logger.info("Received user update.");
 
         // Update user location instead of inserting new document
-        if (!userRepository.findByhwid(user.getHwid()).isEmpty()) {
+        if (!userRepository.findByHWID(user.getHWID()).isEmpty()) {
             logger.info("Updating existing user.");
             // Delete existing record and write new data.
-            userRepository.delete(userRepository.findByhwid(user.getHwid()).stream().findFirst().get());
+            userRepository.delete(userRepository.findByHWID(user.getHWID()).stream().findFirst().get());
             userRepository.save(user);
         } else {
             userRepository.save(user);

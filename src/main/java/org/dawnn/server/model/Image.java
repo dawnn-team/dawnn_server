@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -20,14 +21,16 @@ public class Image {
 
     private final String base64;
     private final String caption;
-    private final User user;
-    //    @Id
-//    public String id;
+
+    // Write only fields mean we can't read them and return them to the user.
+    // This is used for sensitive or unused data, such as the authors hwid.
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private final String authorHWID;
     private UUID uuid;
 
+    // Expire after 3 hours.
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//    @Indexed(expireAfterSeconds = 61)
-//    @Field
+    @Indexed(expireAfterSeconds = 10800)
     private Date time;
 
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE, name = "location")
@@ -38,13 +41,13 @@ public class Image {
     private int likes;
     private int dislikes;
 
-    public Image(User user, String base64, String caption) {
-        this.user = user;
+    public Image(String authorHWID, String base64, String caption, double longitude, double latitude) {
         this.base64 = base64;
         this.caption = caption;
+        this.authorHWID = authorHWID;
         this.uuid = UUID.randomUUID();
         this.time = new Date();
-        this.location = user.getLocation();
+        this.location = new GeoJsonPoint(longitude, latitude);
         this.likes = 0;
         this.dislikes = 0;
     }

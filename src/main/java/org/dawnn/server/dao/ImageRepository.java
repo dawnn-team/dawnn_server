@@ -8,6 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface ImageRepository extends MongoRepository<Image, String> {
 
-    GeoResults<Image> findByUser_LocationNear(Point point, Distance distance);
+    GeoResults<Image> findByLocationNear(Point point, Distance distance);
 
 }
