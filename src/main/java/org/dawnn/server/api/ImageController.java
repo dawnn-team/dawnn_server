@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.dawnn.server.DawnnServerApplication.USER_VIEW_DISTANCE;
+
 /**
  * API layer between between the client and the database.
  */
@@ -59,9 +61,8 @@ public class ImageController {
 
         GeoJsonPoint loc = user.getLocation();
 
-        // TODO Use symbolic constant.
         GeoResults<Image> images = imageRepository.findByLocationNear(new Point(loc.getX(), loc.getY()),
-                new Distance(1, Metrics.KILOMETERS));
+                new Distance(USER_VIEW_DISTANCE, Metrics.KILOMETERS));
 
         updateUser(user);
         // FIXME Lazy; increases runtime.

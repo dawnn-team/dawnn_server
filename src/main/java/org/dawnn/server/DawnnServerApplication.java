@@ -20,6 +20,13 @@ import java.io.IOException;
 @SpringBootApplication
 public class DawnnServerApplication {
 
+
+    /**
+     * This is how far the user should be able to see markers around
+     * themselves, in kilometers.
+     */
+    public static final double USER_VIEW_DISTANCE = 1.0;
+
     @Value("${app.firebase-configuration-file-var}")
     private String firebaseAuthPath;
 
@@ -29,8 +36,6 @@ public class DawnnServerApplication {
 
     @Bean
     FirebaseMessaging firebaseMessaging() throws IOException {
-        // TODO Move this method somewhere else?
-
         // GitHub runners shouldn't use JSON env vars,
         // so let's check if AUTH_HOME (JSON env var) exists
         String authData = null;
