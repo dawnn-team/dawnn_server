@@ -56,7 +56,7 @@ public class ImageController {
      * @param user The user requesting images.
      */
     @PostMapping(consumes = "application/json", value = "request", produces = "application/json")
-    public List<Image> requestImages(@RequestBody User user) {
+    public GeoResults<Image> requestImages(@RequestBody User user) {
         logger.info("Received image request.");
 
         GeoJsonPoint loc = user.getLocation();
@@ -71,7 +71,7 @@ public class ImageController {
             listImages.add(image.getContent());
         }
 
-        return listImages;
+        return images;
     }
 
     /**

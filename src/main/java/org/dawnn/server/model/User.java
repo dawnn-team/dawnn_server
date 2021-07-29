@@ -2,6 +2,7 @@ package org.dawnn.server.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
@@ -20,10 +21,12 @@ public class User {
     // Never give this back to our users.
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private final String HWID;
-
+    @Id
+    public String id;
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE, name = "location")
     private GeoJsonPoint location;
-
+    private double longitude;
+    private double latitude;
     // Delete user data to make attackers mad :^)
     // Expire after 3 hours.
     @Indexed(expireAfterSeconds = 10800)
@@ -33,6 +36,8 @@ public class User {
         this.HWID = HWID;
         this.location = new GeoJsonPoint(longitude, latitude);
         this.time = new Date();
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
 }
