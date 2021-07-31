@@ -36,18 +36,23 @@ public class Image {
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE, name = "location")
     private GeoJsonPoint location;
 
+    private double x;
+    private double y;
+
     // Apple requires a way to moderate user submitted content.
     // Why not have users give feedback on images?
     private int likes;
     private int dislikes;
 
-    public Image(String authorHWID, String base64, String caption, double longitude, double latitude) {
+    public Image(String authorHWID, String base64, String caption, double x, double y) {
         this.base64 = base64;
         this.caption = caption;
         this.authorHWID = authorHWID;
         this.uuid = UUID.randomUUID();
         this.time = new Date();
-        this.location = new GeoJsonPoint(longitude, latitude);
+        this.location = new GeoJsonPoint(x, y);
+        this.x = x;
+        this.y = y;
         this.likes = 0;
         this.dislikes = 0;
     }

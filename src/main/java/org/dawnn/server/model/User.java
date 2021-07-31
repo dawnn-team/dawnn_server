@@ -25,19 +25,19 @@ public class User {
     public String id;
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE, name = "location")
     private GeoJsonPoint location;
-    private double longitude;
-    private double latitude;
+    private double x;
+    private double y;
     // Delete user data to make attackers mad :^)
     // Expire after 3 hours.
     @Indexed(expireAfterSeconds = 10800)
     private Date time;
 
-    public User(String HWID, double longitude, double latitude) {
+    public User(String HWID, double x, double y) {
         this.HWID = HWID;
-        this.location = new GeoJsonPoint(longitude, latitude);
+        this.location = new GeoJsonPoint(x, y);
         this.time = new Date();
-        this.longitude = longitude;
-        this.latitude = latitude;
+        this.x = x;
+        this.y = y;
     }
 
 }

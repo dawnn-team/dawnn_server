@@ -7,15 +7,17 @@ import org.dawnn.server.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.geo.*;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Array;
 
 import static org.dawnn.server.DawnnServerApplication.USER_VIEW_DISTANCE;
 
@@ -56,22 +58,14 @@ public class ImageController {
      * @param user The user requesting images.
      */
     @PostMapping(consumes = "application/json", value = "request", produces = "application/json")
-    public GeoResults<Image> requestImages(@RequestBody User user) {
+    public Object[] requestImages(@RequestBody User user) {
         logger.info("Received image request.");
 
         GeoJsonPoint loc = user.getLocation();
-
-        GeoResults<Image> images = imageRepository.findByLocationNear(new Point(loc.getX(), loc.getY()),
-                new Distance(USER_VIEW_DISTANCE, Metrics.KILOMETERS));
-
         updateUser(user);
-        // FIXME Lazy; increases runtime.
-        var listImages = new ArrayList<Image>();
-        for (GeoResult<Image> image : images) {
-            listImages.add(image.getContent());
-        }
 
-        return images;
+        return imageRepository.findByLocationNear(new Point(loc.getX(), loc.getY()),
+                new Distance(USER_VIEW_DISTANCE, Metrics.KILOMETERS)).getContent().toArray();
     }
 
     /**
