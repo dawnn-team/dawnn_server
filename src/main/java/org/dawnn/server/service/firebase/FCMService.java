@@ -6,6 +6,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import org.dawnn.server.model.MessageContent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;
@@ -17,6 +18,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class FCMService {
 
+    @Autowired
     private final FirebaseMessaging firebaseMessaging;
 
     public FCMService(FirebaseMessaging firebaseMessaging) {
@@ -32,8 +34,6 @@ public class FCMService {
      */
     public String sendMessage(@NotNull MessageContent messageContent,
                               @NotNull String topic) throws ExecutionException, InterruptedException {
-
-        // TODO Build notification in relation to the user platform?
 
         // Construct client notification first
         Notification notification = Notification.builder().setBody(messageContent.getContent())
