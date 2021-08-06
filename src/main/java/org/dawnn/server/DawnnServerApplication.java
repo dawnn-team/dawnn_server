@@ -32,6 +32,7 @@ public class DawnnServerApplication {
         String authData;
 
         if (Boolean.parseBoolean(System.getenv("CI"))) {
+            logger.info("Building auth data for Firebase app on a GitHub runner.");
             // CI env variable is always true on GitHub runners
             // We need to build auth data manually
             authData = new JSONObject()
