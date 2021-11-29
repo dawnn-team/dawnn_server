@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,53 +51,16 @@ public class ImageController {
      */
     @PostMapping(consumes = "application/json")
     public void addImage(@RequestBody Image image) throws FirebaseMessagingException, IOException {
-
         logger.info("Received image post.");
 
         // Before we save and make this image available to the public,
         // Let's run it through Google's SafeSearch Detection service
-        // FIXME: Bad data error thrown.
-
-
-        List<AnnotateImageRequest> requests = new ArrayList<>();
-
-        byte[] decode = Base64.decodeBase64(image.getBase64());
-        String binaryStr = new BigInteger(1, decode).toString(2);
-
-        ByteString input = ByteString.copyFromUtf8(binaryStr);
-        com.google.cloud.vision.v1.Image requestImage = com.google.cloud.vision.v1.Image.newBuilder().setContent(input).build();
-        Feature feat = Feature.newBuilder().setType(Feature.Type.SAFE_SEARCH_DETECTION).build();
-        requests.add(AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(requestImage).build());
-
-        try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
-            BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
-            List<AnnotateImageResponse> responses = response.getResponsesList();
-
-            for (AnnotateImageResponse res : responses) {
-                if (res.hasError()) {
-                    System.out.format("Error: %s%n", res.getError().getMessage());
-                    return;
-                }
-
-                // For full list of available annotations, see http://g.co/cloud/vision/docs
-                SafeSearchAnnotation annotation = res.getSafeSearchAnnotation();
-                logger.info(
-                        "adult: %s%nmedical: %s%nspoofed: %s%nviolence: %s%nracy: %s%n",
-                        annotation.getAdult(),
-                        annotation.getMedical(),
-                        annotation.getSpoof(),
-                        annotation.getViolence(),
-                        annotation.getRacy());
-            }
+        if (!isExplicit(image)) {
+            imageRepository.save(image);
+        } else {
+            // TODO: Flag user
         }
 
-//        String response = FirebaseMessaging.getInstance().send(message);
-//        logger.info("Sent test message, response was: " + response);
-
-//        Message message = Message.builder().setNotification(Notification.builder().setTitle("Test Notification from the Java server!").build()).setTopic("dev").build();
-
-
-        imageRepository.save(image);
         // Since user and image properties are identical at the time of sending,
         // let's just update the user from the image object.
         User user = new User(image.getAuthorHWID(), image.getLocation().getX(), image.getLocation().getY());
@@ -139,5 +101,59 @@ public class ImageController {
             logger.info("Adding new user.");
         }
         userRepository.save(user);
+    }
+
+
+    /**
+     * Check an image for explicit content using Google's SafeSearch API.
+     *
+     * @param image The image which to check.
+     * @return True if the image is explicit, false otherwise.
+     * @throws IOException thrown if creation of {@link ImageAnnotatorClient} fails.
+     */
+    private boolean isExplicit(Image image) throws IOException {
+        // FIXME: Bad data error thrown.
+
+        // Create new list of requests - better for batch, even though we only do one image at a time...
+        List<AnnotateImageRequest> requests = new ArrayList<>();
+
+        // Convert from base64 to bytes
+        byte[] decode = Base64.decodeBase64(image.getBase64());
+        ByteString input = ByteString.copyFrom(decode);
+
+        // Build image and feature request
+        com.google.cloud.vision.v1.Image requestImage = com.google.cloud.vision.v1.Image.newBuilder().setContent(input).build();
+        Feature feat = Feature.newBuilder().setType(Feature.Type.SAFE_SEARCH_DETECTION).build();
+
+        requests.add(AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(requestImage).build());
+
+        // Create the client for requests
+        try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
+            // TODO Cache client, in order to avoid recreating for every request?
+
+            // Annotate images and get responses
+            List<AnnotateImageResponse> responses = client.batchAnnotateImages(requests).getResponsesList();
+            for (AnnotateImageResponse response : responses) {
+                if (response.hasError()) {
+                    System.out.format("Error: %s%n", response.getError().getMessage());
+                    return false;
+                }
+
+                // For full list of available annotations, see http://g.co/cloud/vision/docs
+                SafeSearchAnnotation annotation = response.getSafeSearchAnnotation();
+                logger.info("adult: {} medical: {} spoofed: {} violence: {} racy: {}",
+                        annotation.getAdult(),
+                        annotation.getMedical(),
+                        annotation.getSpoof(),
+                        annotation.getViolence(),
+                        annotation.getRacy());
+                if (annotation.getAdultConfidence() > 0.95) {
+                    return true;
+                }
+            }
+        }
+
+
+        return true;
     }
 }

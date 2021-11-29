@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
@@ -27,11 +26,12 @@ public class DawnnServerApplication {
      */
     public static final double USER_VIEW_DISTANCE = 1.0;
     private static final Logger logger = LoggerFactory.getLogger(DawnnServerApplication.class);
+    public static final boolean IS_PRODUCTION = !Boolean.parseBoolean(System.getenv("CI"));
 
     public DawnnServerApplication() throws IOException {
         String authData;
 
-        if (Boolean.parseBoolean(System.getenv("CI"))) {
+        if (!IS_PRODUCTION) {
             logger.info("Building auth data for Firebase app on a GitHub runner.");
             // CI env variable is always true on GitHub runners
             // We need to build auth data manually
